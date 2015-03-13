@@ -217,94 +217,50 @@ class PoyntAPI:
         currentDatetime = datetime.utcnow()
         expiryDatetime = datetime.utcnow() + timedelta(seconds=300)
         order = {
-            "items":[
-              {
-                 "status":"ORDERED",
-                 "name":"Croissant",
-                 "unitOfMeasure":"EACH",
-                 "unitPrice":195,
-                 "tax":32,
-                 "discount":20,
-                 "quantity":2.0,
-                 "discounts":[
-                    {
-                       "customName":"item-on-sale",
-                       "amount":5
-                    },
-                    {
-                       "customName":"buy 2, get 15 cents off",
-                       "amount":15
-                    }
-                 ]
-              },
-              {
-                 "status":"ORDERED",
-                 "name":"Sparkling Water",
-                 "unitOfMeasure":"EACH",
-                 "unitPrice":425,
-                 "tax":35,
-                 "quantity":1.0
-              },
-              {
-                 "status":"ORDERED",
-                 "name":"Green Tea",
-                 "unitOfMeasure":"EACH",
-                 "unitPrice":350,
-                 "tax":28,
-                 "quantity":1.0
-              },
-              {
-                 "status":"ORDERED",
-                 "name":"Coconut Water",
-                 "unitOfMeasure":"EACH",
-                 "unitPrice":550,
-                 "tax":45,
-                 "quantity":1.0
-              },
-              {
-                 "status":"ORDERED",
-                 "name":"Coffee",
-                 "unitOfMeasure":"EACH",
-                 "unitPrice":250,
-                 "tax":20,
-                 "quantity":1.0
-              },
-              {
-                 "status":"ORDERED",
-                 "name":"Latte",
-                 "unitOfMeasure":"EACH",
-                 "unitPrice":415,
-                 "tax":34,
-                 "quantity":1.0
-              }
-           ],
-           "discounts":[
-              {
-                 "customName":"Special discount 1",
-                 "amount":50
-              },
-              {
-                 "customName":"Repeat Customer discount",
-                 "amount":30
-              }
-           ],
-           "amounts": {
-              "taxTotal":194,
-              "subTotal":2380,
-              "discountTotal":-100,
-              "currency":"USD"
-           },
+          "amounts": {
+            "currency": "USD",
+            "netTotal": 90,
+            "subTotal": 90,
+            "taxTotal": 0,
+            "discountTotal": -10
+          },
+          "discounts": [
+            {
+              "amount": -5,
+              "customName": "%5",
+              "id": "f650b5b0-8cf9-4e1a-8b13-90f9b3bf9d9a",
+              "percentage": 5.0
+            }
+          ],
+          "items": [
+            {
+              "discount": 5,
+              "discounts": [
+                {
+                  "amount": 5,
+                  "customName": "($0.05)",
+                  "id": "d0cb6556-e751-4875-b46a-a1f837cbb718"
+                }
+              ],
+              "name": "Cheese",
+              "productId": "3b49e021-1671-42a2-9588-cadf1428584d",
+              "quantity": 1.0,
+              "sku": "177",
+              "status": "FULFILLED",
+              "tax": 0,
+              "taxes": [],
+              "unitOfMeasure": "EACH",
+              "unitPrice": 90
+            }
+          ],
            "context": {
               "source":"WEB",
               "businessId": businessId,
               "storeDeviceId": self.applicationId,
               "storeId": storeId
            },
-           "statuses": {
-              "status":"OPENED"
-           },
-           "createdAt": datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),
-           "updatedAt": datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")
+          "links": [],
+          "transactions": []
         }
         print "Recording a new Order:"
         code, jsonObj = self._sendPostRequest(poyntOrderUrl, json.dumps(order), {}, {})
